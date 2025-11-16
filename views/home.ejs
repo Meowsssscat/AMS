@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AMS - Home</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/headerAndNavigation.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+
+<body>
+
+    <!-- Include Header + Navigation -->
+    <%- include('partials/headerAndNavigation') %>
+
+    <main class="main-content">
+
+        <h2 class="section-title">Available Services</h2>
+
+        <div class="services-container">
+
+            <!-- 1 -->
+            <div class="service-card" data-modal="modal1">
+                <img src="/image/haircut.jpg" class="service-img" alt="Haircut">
+                <h3 class="service-name">Haircut</h3>
+                <p class="service-short-desc">Basic men's haircut.</p>
+                <div class="service-info">
+                    <span class="price">₱200</span>
+                    <span class="duration">25 mins</span>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="service-card" data-modal="modal2">
+                <img src="/image/hairColor.jpg" class="service-img" alt="Hair Coloring">
+                <h3 class="service-name">Hair Coloring</h3>
+                <p class="service-short-desc">Full hair color treatment.</p>
+                <div class="service-info">
+                    <span class="price">₱850</span>
+                    <span class="duration">90 mins</span>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="service-card" data-modal="modal3">
+                <img src="/image/shave.jpg" class="service-img" alt="Shaving">
+                <h3 class="service-name">Shaving</h3>
+                <p class="service-short-desc">Clean professional shave.</p>
+                <div class="service-info">
+                    <span class="price">₱150</span>
+                    <span class="duration">15 mins</span>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="service-card" data-modal="modal4">
+                <img src="/image/hairSpa.jpg" class="service-img" alt="Hair Spa">
+                <h3 class="service-name">Hair Spa</h3>
+                <p class="service-short-desc">Relaxing hair treatment.</p>
+                <div class="service-info">
+                    <span class="price">₱500</span>
+                    <span class="duration">45 mins</span>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="service-card" data-modal="modal5">
+                <img src="/image/facial.jpg" class="service-img" alt="Facial">
+                <h3 class="service-name">Facial</h3>
+                <p class="service-short-desc">Deep cleaning facial.</p>
+                <div class="service-info">
+                    <span class="price">₱350</span>
+                    <span class="duration">30 mins</span>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="service-card" data-modal="modal6">
+                <img src="/image/footSpa.jpg" class="service-img" alt="Foot Spa">
+                <h3 class="service-name">Foot Spa</h3>
+                <p class="service-short-desc">Foot cleaning & massage.</p>
+                <div class="service-info">
+                    <span class="price">₱300</span>
+                    <span class="duration">40 mins</span>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="service-card" data-modal="modal7">
+                <img src="/image/manicure.jpg" class="service-img" alt="Manicure">
+                <h3 class="service-name">Manicure</h3>
+                <p class="service-short-desc">Classic manicure service.</p>
+                <div class="service-info">
+                    <span class="price">₱180</span>
+                    <span class="duration">20 mins</span>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="service-card" data-modal="modal8">
+                <img src="/image/pedicure.jpg" class="service-img" alt="Pedicure">
+                <h3 class="service-name">Pedicure</h3>
+                <p class="service-short-desc">Classic pedicure service.</p>
+                <div class="service-info">
+                    <span class="price">₱200</span>
+                    <span class="duration">25 mins</span>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!--       SERVICE MODALS      -->
+        <!-- ========================= -->
+
+        <!-- MODAL 1 -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+
+                <img class="modal-img" src="/image/haircut.jpg">
+                <h2>Haircut</h2>
+
+                <div class="modal-description">
+                    <p>Professional men's haircut.</p>
+                    <ul>
+                        <li>Scissor cut</li>
+                        <li>Razor shape-up</li>
+                        <li>Styling included</li>
+                    </ul>
+                </div>
+
+                <div class="modal-booking-info">
+                    <p>Price: ₱200</p>
+                    <p>Duration: 25 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Michael Reyes</option>
+                        <option>Sarah Lim</option>
+                    </select>
+                </div>
+
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- Repeat pattern for remaining modals -->
+
+        <!-- MODAL 2 -->
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/hairColor.jpg">
+                <h2>Hair Coloring</h2>
+                <div class="modal-description">
+                    <p>Full-color package with premium dyes.</p>
+                    <ul>
+                        <li>Color consultation</li>
+                        <li>High-quality materials</li>
+                        <li>After-care treatment</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱850</p>
+                    <p>Duration: 90 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Angela Cruz</option>
+                        <option>Rico Santos</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 3 -->
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/shave.jpg">
+                <h2>Shaving</h2>
+                <div class="modal-description">
+                    <p>Clean professional shave with warm towel.</p>
+                    <ul>
+                        <li>Warm towel prep</li>
+                        <li>Razor shave</li>
+                        <li>Aftershave care</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱150</p>
+                    <p>Duration: 15 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Leo Mendoza</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 4 -->
+        <div id="modal4" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/hairSpa.jpg">
+                <h2>Hair Spa</h2>
+                <div class="modal-description">
+                    <p>Relaxing treatment to hydrate hair.</p>
+                    <ul>
+                        <li>Scalp massage</li>
+                        <li>Moisturizing cream</li>
+                        <li>Steam treatment</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱500</p>
+                    <p>Duration: 45 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Nina Torres</option>
+                        <option>Marco Delos Reyes</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 5 -->
+        <div id="modal5" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/facial.jpg">
+                <h2>Facial</h2>
+                <div class="modal-description">
+                    <p>Deep cleansing and exfoliation.</p>
+                    <ul>
+                        <li>Steam extraction</li>
+                        <li>Mask treatment</li>
+                        <li>Face massage</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱350</p>
+                    <p>Duration: 30 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Jenny Cruz</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 6 -->
+        <div id="modal6" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/footSpa.jpg">
+                <h2>Foot Spa</h2>
+                <div class="modal-description">
+                    <p>Relaxing and soothing foot treatment.</p>
+                    <ul>
+                        <li>Foot soak</li>
+                        <li>Exfoliation</li>
+                        <li>Massage</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱300</p>
+                    <p>Duration: 40 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Lara Jimenez</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 7 -->
+        <div id="modal7" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/manicure.jpg">
+                <h2>Manicure</h2>
+                <div class="modal-description">
+                    <p>Classic manicure package.</p>
+                    <ul>
+                        <li>Nail cleaning</li>
+                        <li>Nail shaping</li>
+                        <li>Polish application</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱180</p>
+                    <p>Duration: 20 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Anna Mae</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+
+        <!-- MODAL 8 -->
+        <div id="modal8" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <img class="modal-img" src="/image/pedicure.jpg">
+                <h2>Pedicure</h2>
+                <div class="modal-description">
+                    <p>Classic pedicure package.</p>
+                    <ul>
+                        <li>Nail cleaning</li>
+                        <li>Nail trimming</li>
+                        <li>Polish application</li>
+                    </ul>
+                </div>
+                <div class="modal-booking-info">
+                    <p>Price: ₱200</p>
+                    <p>Duration: 25 mins</p>
+
+                    <label>Available Crew</label>
+                    <select>
+                        <option>Maria Santos</option>
+                    </select>
+                </div>
+                <button class="book-btn">Book Now</button>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- Include Footer -->
+    <%- include('partials/footer') %>
+
+    <script src="/js/home.js"></script>
+    <script src="/js/headerAndNavigation.js"></script>
+    <script src="/js/footer.js"></script>
+</body>
+</html>
