@@ -9,6 +9,32 @@ const businessOwnerAuthController = require('../controllers/businessOwnerAuth');
 const dashboardController = require('../controllers/businessOwner/dashboard');
 const { requireAuth, isBusinessOwner } = require('../middleware/auth');
 const { uploadBusinessDocuments } = require('../config/cloudinary');
+const fetch = require('node-fetch');
+
+// Geocoding proxy endpoint (no auth required)
+router.get('/geocode', async (req, res) => {
+    try {
+        const { lat, lng } = req.query;
+        if (!lat || !lng) {
+            return res.status(400).json({ error: 'Missing coordinates' });
+        }
+
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`,
+            {
+                headers: {
+                    'User-Agent': 'BookingApp/1.0'
+                }
+            }
+        );
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Geocoding error:', error);
+        res.status(500).json({ error: 'Geocoding failed' });
+    }
+});
 
 // Business application routes (for existing customers)
 router.get('/register', requireAuth, businessOwnerAuthController.loadRegistrationPage);

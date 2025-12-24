@@ -75,7 +75,6 @@
                     <input type="date" name="date" id="date" required 
                            min="<%= new Date().toISOString().split('T')[0] %>"
                            max="<%= (() => { const d = new Date(); d.setDate(d.getDate() + 30); return d.toISOString().split('T')[0]; })() %>">
-                    <small class="hint">Bookings available up to 30 days in advance. Closed on Sundays.</small>
                 </div>
 
                 <div class="form-group">

@@ -27,65 +27,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedDate = this.value;
         if (!selectedDate) return;
         
-        // Check if business is open on this day
-        await checkBusinessHours(selectedDate);
+        // Always try to load time slots if staff is selected
+        if (staffSelect.value) {
+            await loadTimeSlots();
+        } else {
+            timeSlotsContainer.innerHTML = '<p class="hint">Please select a staff member first</p>';
+        }
     });
     
-    staffSelect.addEventListener('change', loadTimeSlots);
-
-    staffSelect.addEventListener('change', loadTimeSlots);
-
-    // Check if business is open on selected date
-    async function checkBusinessHours(date) {
-        try {
-            const selectedDate = new Date(date);
-            const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-            
-            // Get business ID from service
-            const response = await fetch(`/api/services/${serviceId}`);
-            const serviceData = await response.json();
-            const businessId = serviceData.service.businessId;
-            
-            // Check business availability for this date
-            const availResponse = await fetch(`/api/services/business-availability?businessId=${businessId}&date=${date}`);
-            const availData = await availResponse.json();
-            
-            // Show message below date input
-            const dateGroup = dateInput.closest('.form-group');
-            let messageDiv = dateGroup.querySelector('.date-message');
-            
-            if (!messageDiv) {
-                messageDiv = document.createElement('div');
-                messageDiv.className = 'date-message';
-                const hint = dateGroup.querySelector('.hint');
-                if (hint) {
-                    hint.parentNode.insertBefore(messageDiv, hint.nextSibling);
-                } else {
-                    dateGroup.appendChild(messageDiv);
-                }
-            }
-            
-            if (!availData.available) {
-                messageDiv.innerHTML = `<span class="error-text">⚠️ ${availData.reason || 'Business is closed on ' + dayName + 's'}</span>`;
-                messageDiv.style.display = 'block';
-                timeSlotsContainer.innerHTML = `<p class="hint">${availData.reason || 'Business is closed on this day'}</p>`;
-                startTimeInput.value = '';
-                endTimeInput.value = '';
-            } else {
-                messageDiv.style.display = 'none';
-                // Load time slots if staff is selected
-                if (staffSelect.value) {
-                    loadTimeSlots();
-                }
-            }
-        } catch (error) {
-            console.error('Error checking business hours:', error);
-            // Continue to load time slots even if check fails
-            if (staffSelect.value) {
-                loadTimeSlots();
-            }
+    staffSelect.addEventListener('change', async function() {
+        if (dateInput.value) {
+            await loadTimeSlots();
+        } else {
+            timeSlotsContainer.innerHTML = '<p class="hint">Please select a date first</p>';
         }
-    }
+    });
 
     async function loadTimeSlots() {
         const date = dateInput.value;
@@ -103,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (!date) {
-            timeSlotsContainer.innerHTML = '<p class="hint">Please select a date</p>';
+            timeSlotsContainer.innerHTML = '<p class="hint">Please select a date first</p>';
             return;
         }
 
@@ -129,6 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             console.log('Slots received:', data.slots ? data.slots.length : 0, 'slots');
 
+            // Check if there's a message indicating business is closed
+            if (data.message && data.message.includes('closed')) {
+                timeSlotsContainer.innerHTML = `<p class="hint">${data.message}</p>`;
+                return;
+            }
+
             if (data.slots && data.slots.length > 0) {
                 timeSlotsContainer.innerHTML = data.slots.map(slot => `
                     <div class="time-slot" data-start="${slot.start}" data-end="${slot.end}">
@@ -147,8 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             } else {
-                const staffName = staffId ? 'this staff member' : 'any staff';
-                timeSlotsContainer.innerHTML = `<p class="hint">No available slots for ${staffName} on this date</p>`;
+                timeSlotsContainer.innerHTML = `<p class="hint">No available time slots for this date</p>`;
             }
         } catch (error) {
             console.error('Error loading slots:', error);

@@ -305,21 +305,21 @@ body {
     }
 
     .logo {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
 
     .system-title {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .nav-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
 
     .header-right {
-        gap: 16px;
+        gap: 12px;
     }
 
     .dropdown-menu {
@@ -387,21 +387,21 @@ body {
     }
 
     .logo {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
 
     .system-title {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .nav-icon {
-        width: 22px;
-        height: 22px;
+        width: 18px;
+        height: 18px;
     }
 
     .header-right {
-        gap: 12px;
+        gap: 10px;
     }
 
     .dropdown-menu {
@@ -790,22 +790,6 @@ body {
 /* Responsive adjustments for mode indicator */
 @media (max-width: 768px) {
     .mode-indicator {
-        padding: 6px 12px;
-        gap: 8px;
-    }
-    
-    .current-mode {
-        font-size: 12px;
-    }
-    
-    .mode-switch-btn {
-        padding: 5px 10px;
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 480px) {
-    .mode-indicator {
         padding: 5px 10px;
         gap: 6px;
     }
@@ -817,5 +801,71 @@ body {
     .mode-switch-btn {
         padding: 4px 8px;
         font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mode-indicator {
+        padding: 4px 8px;
+        gap: 5px;
+    }
+    
+    .current-mode {
+        font-size: 10px;
+    }
+    
+    .mode-switch-btn {
+        padding: 3px 6px;
+        font-size: 9px;
+    }
+
+    /* Business Mode Modal Optimization */
+    .modal-box h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .modal-box p {
+        font-size: 0.7rem !important;
+    }
+
+    .business-status-info {
+        background: #f8f9fa !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        margin: 12px 0 !important;
+        border-left: none !important;
+        border: 1px solid #e0e0e0 !important;
+    }
+
+    .business-status-info p {
+        margin-bottom: 6px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .business-status-info strong {
+        font-size: 0.7rem !important;
+    }
+
+    #businessStatus {
+        font-size: 0.7rem !important;
+    }
+
+    #statusMessage {
+        margin-top: 8px !important;
+    }
+
+    #statusMessage p {
+        font-size: 0.65rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .modal-actions {
+        flex-direction: row !important;
+        gap: 6px !important;
+    }
+
+    .modal-actions button {
+        padding: 8px 10px !important;
+        font-size: 0.7rem !important;
     }
 }

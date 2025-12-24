@@ -398,72 +398,117 @@ body {
 /* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
     .main-content {
-        padding: 40px 16px;
+        padding: 20px 10px !important;
     }
 
     .page-header {
-        margin-bottom: 24px;
+        margin-bottom: 16px !important;
     }
 
     .header-actions {
-        gap: 8px;
+        gap: 6px !important;
     }
 
     .btn-secondary,
     .btn-danger {
-        padding: 10px 16px;
-        font-size: 13px;
+        padding: 8px 12px !important;
+        font-size: 0.7rem !important;
     }
 
     .notification-item {
-        padding: 20px;
-        flex-direction: column;
-        align-items: flex-start;
+        padding: 12px !important;
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .notification-content {
+        gap: 6px !important;
     }
 
     .notification-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
     }
 
     .notification-title {
-        font-size: 16px;
+        font-size: 0.85rem !important;
+        margin-bottom: 6px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .notification-time {
+        font-size: 0.65rem !important;
+        margin-top: 2px !important;
     }
 
     .notification-message {
-        font-size: 14px;
+        font-size: 0.75rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .notification-badge-indicator {
+        width: 6px !important;
+        height: 6px !important;
+        margin-left: 6px !important;
     }
 
     .btn-delete-notification {
-        align-self: flex-end;
-        margin-top: 12px;
+        width: 28px !important;
+        height: 28px !important;
+        padding: 4px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .delete-icon {
+        font-size: 14px !important;
+    }
+
+    .loading,
+    .empty-state {
+        padding: 40px 16px !important;
+        font-size: 0.8rem !important;
     }
 
     .modal-box {
-        padding: 32px 24px;
-        border-radius: 20px;
+        padding: 16px 12px !important;
+        border-radius: 12px !important;
     }
 
     .modal-box h3 {
-        font-size: 24px;
+        font-size: 0.95rem !important;
+    }
+
+    .modal-box p {
+        font-size: 0.75rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .warning-text {
+        font-size: 0.7rem !important;
+        margin-top: 10px !important;
     }
 
     .close-btn {
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        font-size: 20px;
+        top: 10px !important;
+        right: 10px !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 16px !important;
     }
 
     .modal-actions {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row !important;
+        gap: 6px !important;
+        margin-top: 16px !important;
     }
 
     .modal-actions button {
-        width: 100%;
+        width: 100% !important;
+        padding: 8px 12px !important;
+        font-size: 0.75rem !important;
     }
 }
 

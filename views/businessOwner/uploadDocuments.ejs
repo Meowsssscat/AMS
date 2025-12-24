@@ -3,343 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Business Documents</title>
-    <link rel="stylesheet" href="/css/auth.css">
+    <title>Upload Documents</title>
+    <link rel="stylesheet" href="/css/scrollbar.css">
     <style>
-        .upload-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
             max-width: 700px;
-            margin: 50px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .upload-header {
-            text-align: center;
-            margin-bottom: 30px;
+        .back-link {
+            margin-bottom: 20px;
         }
 
-        .upload-header h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .upload-header p {
+        .back-link a {
             color: #666;
+            text-decoration: none;
             font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .progress-steps {
-            display: flex;
-            justify-content: center;
+        .back-link a:hover {
+            color: #1a1a1a;
+        }
+
+        .page-header {
             margin-bottom: 30px;
         }
 
-        .step {
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .progress-bar {
             display: flex;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
             color: #999;
         }
 
-        .step.active {
-            color: #4CAF50;
-            font-weight: bold;
+        .progress-step.completed {
+            color: #1a1a1a;
+            font-weight: 500;
         }
 
-        .step.completed {
-            color: #4CAF50;
+        .progress-step.active {
+            color: #1a1a1a;
+            font-weight: 600;
         }
 
-        .step-number {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 8px;
-        }
-
-        .step.active .step-number {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .step.completed .step-number {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .step-arrow {
-            margin: 0 15px;
-            color: #ddd;
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            color: #1565c0;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 4px solid #1565c0;
-        }
-
-        .document-section {
-            margin-bottom: 20px;
-            padding: 20px;
-            background: #f9f9f9;
+        .info-note {
+            background: #f8f9fa;
+            padding: 14px;
             border-radius: 8px;
-        }
-
-        .document-section h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .document-section p {
+            font-size: 13px;
             color: #666;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-input-wrapper input[type=file] {
-            position: absolute;
-            left: -9999px;
-        }
-
-        .file-input-label {
-            display: block;
-            padding: 12px;
-            background: white;
-            border: 2px dashed #ddd;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .file-input-label:hover {
-            border-color: #4CAF50;
-            background: #f0f8f0;
-        }
-
-        .file-input-label.has-file {
-            border-color: #4CAF50;
-            background: #f0f8f0;
-        }
-
-        .file-name {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #4CAF50;
-        }
-
-        .required-badge {
-            display: inline-block;
-            background: #ff5722;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            margin-left: 8px;
-        }
-
-        .optional-badge {
-            display: inline-block;
-            background: #9e9e9e;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            margin-left: 8px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .submit-btn {
-            flex: 1;
-            padding: 15px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #45a049;
-        }
-
-        .skip-btn {
-            flex: 1;
-            padding: 15px;
-            background: #9e9e9e;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .skip-btn:hover {
-            background: #757575;
+            margin-bottom: 24px;
         }
 
         .error-message {
             background: #ffebee;
             color: #c62828;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #c62828;
+            font-size: 14px;
         }
 
+        .document-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .document-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .document-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.required {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .badge.optional {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .document-desc {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 14px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .file-input-label:hover {
+            border-color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        .file-input-label.has-file {
+            border-color: #1a1a1a;
+            background: #fafafa;
+            color: #1a1a1a;
+        }
+
+        .file-name {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .button-group {
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #333;
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .upload-container {
-                margin: 20px;
-                padding: 20px;
+            .container {
+                padding: 15px;
             }
 
-            .progress-steps {
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .progress-bar {
+                padding: 12px;
+                font-size: 11px;
+            }
+
+            .document-card {
+                padding: 16px;
+            }
+
+            .document-title {
+                font-size: 14px;
+            }
+
+            .document-desc {
                 font-size: 12px;
             }
 
-            .step-arrow {
-                margin: 0 8px;
+            .file-input-label {
+                padding: 12px;
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="upload-container">
-        <div class="upload-header">
-            <h1>📄 Upload Business Documents</h1>
-            <p>Please upload the required documents for verification</p>
+    <div class="container">
+        <div class="back-link">
+            <a href="<%= isUnifiedMode ? '/home' : '/business-owner/dashboard' %>">← Back</a>
         </div>
 
-        <div class="progress-steps">
-            <div class="step completed">
-                <div class="step-number">✓</div>
-                <span>Registration</span>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step active">
-                <div class="step-number">2</div>
-                <span>Documents</span>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <span>Verification</span>
-            </div>
+        <div class="page-header">
+            <h1>Upload Documents</h1>
+            <p>Submit your business documents for verification</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-step completed">✓ Registration</div>
+            <div class="progress-step active">Documents</div>
+            <div class="progress-step">Verification</div>
         </div>
 
         <% if (error) { %>
-            <div class="error-message">
-                ⚠️ <%= error %>
-            </div>
+        <div class="error-message"><%= error %></div>
         <% } %>
 
-        <div class="info-box">
-            <strong>ℹ️ Important:</strong> All documents must be clear and readable. Accepted formats: PDF, JPG, PNG (Max 5MB each)
+        <div class="info-note">
+            All documents must be clear and readable. Accepted: PDF, JPG, PNG (Max 5MB each)
         </div>
 
         <form action="<%= isUnifiedMode ? '/business/upload-documents' : '/business-owner/upload-documents' %>" method="POST" enctype="multipart/form-data">
-            <!-- DTI Registration -->
-            <div class="document-section">
-                <h3>
-                    📋 DTI Business Registration / SEC Certificate
-                    <span class="required-badge">REQUIRED</span>
-                </h3>
-                <p>Your business registration certificate from DTI or SEC</p>
+            <!-- DTI -->
+            <div class="document-card">
+                <div class="document-header">
+                    <div class="document-title">DTI / SEC Certificate</div>
+                    <span class="badge required">Required</span>
+                </div>
+                <div class="document-desc">Business registration from DTI or SEC</div>
                 <div class="file-input-wrapper">
                     <input type="file" name="dti" id="dti" accept=".pdf,.jpg,.jpeg,.png" required>
                     <label for="dti" class="file-input-label" id="dti-label">
-                        📁 Click to upload DTI/SEC Certificate
+                        Choose file
                     </label>
                     <div class="file-name" id="dti-name"></div>
                 </div>
             </div>
 
             <!-- Business Permit -->
-            <div class="document-section">
-                <h3>
-                    🏛️ Mayor's Permit / Business Permit
-                    <span class="required-badge">REQUIRED</span>
-                </h3>
-                <p>Your current business permit from the local government</p>
+            <div class="document-card">
+                <div class="document-header">
+                    <div class="document-title">Business Permit</div>
+                    <span class="badge required">Required</span>
+                </div>
+                <div class="document-desc">Mayor's permit from local government</div>
                 <div class="file-input-wrapper">
                     <input type="file" name="business_permit" id="permit" accept=".pdf,.jpg,.jpeg,.png" required>
                     <label for="permit" class="file-input-label" id="permit-label">
-                        📁 Click to upload Business Permit
+                        Choose file
                     </label>
                     <div class="file-name" id="permit-name"></div>
                 </div>
             </div>
 
             <!-- Valid ID -->
-            <div class="document-section">
-                <h3>
-                    🪪 Valid Government ID
-                    <span class="required-badge">REQUIRED</span>
-                </h3>
-                <p>Any valid government-issued ID (Driver's License, Passport, National ID, etc.)</p>
+            <div class="document-card">
+                <div class="document-header">
+                    <div class="document-title">Valid ID</div>
+                    <span class="badge required">Required</span>
+                </div>
+                <div class="document-desc">Government-issued ID (License, Passport, etc.)</div>
                 <div class="file-input-wrapper">
                     <input type="file" name="valid_id" id="valid_id" accept=".pdf,.jpg,.jpeg,.png" required>
                     <label for="valid_id" class="file-input-label" id="valid_id-label">
-                        📁 Click to upload Valid ID
+                        Choose file
                     </label>
                     <div class="file-name" id="valid_id-name"></div>
                 </div>
             </div>
 
-            <!-- BIR Certificate (Optional) -->
-            <div class="document-section">
-                <h3>
-                    📊 BIR Certificate of Registration
-                    <span class="optional-badge">OPTIONAL</span>
-                </h3>
-                <p>Your BIR registration certificate (if available)</p>
+            <!-- BIR (Optional) -->
+            <div class="document-card">
+                <div class="document-header">
+                    <div class="document-title">BIR Certificate</div>
+                    <span class="badge optional">Optional</span>
+                </div>
+                <div class="document-desc">BIR registration certificate (if available)</div>
                 <div class="file-input-wrapper">
                     <input type="file" name="bir" id="bir" accept=".pdf,.jpg,.jpeg,.png">
                     <label for="bir" class="file-input-label" id="bir-label">
-                        📁 Click to upload BIR Certificate (Optional)
+                        Choose file
                     </label>
                     <div class="file-name" id="bir-name"></div>
                 </div>
             </div>
 
             <div class="button-group">
-                <button type="submit" class="submit-btn">
-                    Submit for Verification ✓
-                </button>
-                <button type="button" class="skip-btn" onclick="skipDocuments()">
-                    Skip for Now
-                </button>
+                <button type="submit" class="submit-btn">Submit →</button>
             </div>
         </form>
     </div>
 
     <script>
-        // File input handlers
         const fileInputs = ['dti', 'permit', 'valid_id', 'bir'];
         
         fileInputs.forEach(id => {
@@ -353,20 +357,15 @@
                     const fileSize = (this.files[0].size / 1024 / 1024).toFixed(2);
                     
                     label.classList.add('has-file');
-                    nameDisplay.textContent = `✓ ${fileName} (${fileSize} MB)`;
+                    label.textContent = 'File selected';
+                    nameDisplay.textContent = `${fileName} (${fileSize} MB)`;
                 } else {
                     label.classList.remove('has-file');
+                    label.textContent = 'Choose file';
                     nameDisplay.textContent = '';
                 }
             });
         });
-
-        function skipDocuments() {
-            const skipUrl = '<%= isUnifiedMode ? "/business/skip-documents" : "/business-owner/skip-documents" %>';
-            if (confirm('Are you sure you want to skip document upload? You can upload them later, but your business will remain pending until documents are verified.')) {
-                window.location.href = skipUrl;
-            }
-        }
     </script>
 </body>
 </html>

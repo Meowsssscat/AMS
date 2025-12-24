@@ -37,7 +37,7 @@
 
         .filter-controls {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
             align-items: center;
         }
@@ -72,6 +72,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.875rem;
+            white-space: nowrap;
         }
 
         .btn-location:hover {
@@ -109,10 +110,90 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.875rem;
+            white-space: nowrap;
         }
 
         .btn-map:hover {
             background: #059669;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .location-filter {
+                padding: 1rem;
+                margin: 1rem;
+                border-radius: 8px;
+            }
+
+            .search-bar-container {
+                margin-bottom: 0.75rem;
+            }
+
+            .search-input {
+                padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .btn-clear-search {
+                width: 28px;
+                height: 28px;
+                right: 0.5rem;
+            }
+
+            .filter-controls {
+                gap: 0.5rem;
+                justify-content: space-between;
+            }
+
+            .filter-input-group select {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+                min-width: 70px;
+            }
+
+            .btn-location,
+            .btn-map,
+            .btn-reset {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                flex: 1;
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .location-filter {
+                padding: 0.75rem;
+                margin: 0.75rem;
+            }
+
+            .search-input {
+                padding: 0.65rem 2.25rem 0.65rem 0.65rem;
+                font-size: 0.8rem;
+            }
+
+            .btn-clear-search {
+                width: 24px;
+                height: 24px;
+                font-size: 1rem;
+            }
+
+            .filter-controls {
+                gap: 0.4rem;
+            }
+
+            .filter-input-group select {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.75rem;
+                min-width: 60px;
+            }
+
+            .btn-location,
+            .btn-map,
+            .btn-reset {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.7rem;
+            }
         }
 
         .location-status {
@@ -347,17 +428,13 @@
 
         <!-- Location Filter -->
         <div class="location-filter">
-            <div class="filter-header">
-                <h3>🔍 Find Services</h3>
-            </div>
-            
             <!-- Search Bar -->
             <div class="search-bar-container">
                 <input 
                     type="text" 
                     id="searchInput" 
                     class="search-input" 
-                    placeholder="Search services by name, description, or category..."
+                    placeholder="Search services..."
                 >
                 <button id="clearSearchBtn" class="btn-clear-search" style="display: none;">
                     ✕
@@ -367,7 +444,6 @@
             <!-- Location Controls -->
             <div class="filter-controls">
                 <div class="filter-input-group">
-                    <label for="radiusSelect">Within:</label>
                     <select id="radiusSelect">
                         <option value="5">5 km</option>
                         <option value="10" selected>10 km</option>
@@ -386,7 +462,7 @@
                 </button>
 
                 <button id="resetFilterBtn" class="btn-reset" style="display: none;">
-                    🔄 Reset All Filters
+                    Reset
                 </button>
             </div>
 

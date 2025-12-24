@@ -17,38 +17,38 @@
     <main class="main-content">
         <!-- Search and Filter Section -->
         <section class="search-filter-section">
-            <h1 class="section-title">Find Services</h1>
-            
             <!-- Search Bar -->
             <div class="search-container">
                 <input 
                     type="text" 
                     id="searchInput" 
                     class="search-input" 
-                    placeholder="Search by name, description, or category"
+                    placeholder="Search services..."
                 >
                 <button id="clearSearchBtn" class="btn-clear-search">×</button>
             </div>
 
             <!-- Filter Controls -->
             <div class="filter-controls">
-                <div class="filter-group">
-                    <label class="filter-label">Within</label>
-                    <select id="radiusSelect" class="filter-select">
-                        <option value="5">5 km</option>
-                        <option value="10" selected>10 km</option>
-                        <option value="20">20 km</option>
-                        <option value="50">50 km</option>
-                        <option value="100">100 km</option>
-                    </select>
-                </div>
+                <select id="radiusSelect" class="filter-select">
+                    <option value="5">5 km</option>
+                    <option value="10" selected>10 km</option>
+                    <option value="20">20 km</option>
+                    <option value="50">50 km</option>
+                    <option value="100">100 km</option>
+                </select>
 
-                <button id="useLocationBtn" class="btn btn-primary">Use My Location</button>
-                <button id="selectOnMapBtn" class="btn btn-outline">Select on Map</button>
-                <button id="resetFilterBtn" class="btn btn-secondary" style="display: none;">Reset Filters</button>
+                <button id="useLocationBtn" class="btn btn-primary btn-icon" title="Use My Location">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </button>
+                <button id="selectOnMapBtn" class="btn btn-outline">Map</button>
+                <button id="resetFilterBtn" class="btn btn-secondary" style="display: none;">Reset</button>
             </div>
 
-            <div id="locationStatus" class="status-message"></div>
+            <div id="locationStatus" class="location-status-text"></div>
         </section>
 
         <!-- Services Grid -->
@@ -61,7 +61,7 @@
         <div id="mapModal" class="map-modal">
             <div class="map-modal-content">
                 <div class="map-modal-header">
-                    <h3 class="map-modal-title">Select Your Location</h3>
+                    <h3 class="map-modal-title">Select Location</h3>
                     <button class="modal-close" id="closeMapBtn">×</button>
                 </div>
                 <div id="map" class="map-container"></div>
@@ -223,7 +223,7 @@
         // Show status
         function showStatus(message, type = 'success') {
             const statusEl = document.getElementById('locationStatus');
-            statusEl.className = `status-message status-${type}`;
+            statusEl.className = 'location-status-text show';
             statusEl.textContent = message;
             statusEl.style.display = 'block';
         }

@@ -485,91 +485,158 @@ body {
 /* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
     .main-content {
-        padding: 40px 16px;
+        padding: 20px 10px !important;
     }
 
     .page-header {
-        margin-bottom: 24px;
+        margin-bottom: 16px !important;
     }
 
     .btn-danger {
-        padding: 10px 16px;
-        font-size: 13px;
+        padding: 8px 12px !important;
+        font-size: 0.7rem !important;
     }
 
     .empty-state {
-        padding: 60px 20px;
+        padding: 40px 16px !important;
     }
 
     .empty-state p {
-        font-size: 16px;
+        font-size: 0.8rem !important;
+        margin-bottom: 20px !important;
     }
 
     .btn-primary {
-        padding: 14px 36px;
-        font-size: 15px;
+        padding: 10px 24px !important;
+        font-size: 0.8rem !important;
     }
 
     .history-header {
-        padding: 16px 20px;
+        padding: 12px 14px !important;
+    }
+
+    .queue-number {
+        font-size: 0.75rem !important;
+    }
+
+    .status-badge {
+        padding: 6px 10px !important;
+        font-size: 0.65rem !important;
     }
 
     .history-body {
-        padding: 20px;
+        padding: 14px !important;
     }
 
     .history-body h3 {
-        font-size: 20px;
+        font-size: 0.9rem !important;
+        margin-bottom: 8px !important;
     }
 
     .history-body p {
-        font-size: 14px;
+        font-size: 0.75rem !important;
+        margin: 4px 0 !important;
+    }
+
+    .history-body .staff {
+        margin-top: 8px !important;
+        font-size: 0.75rem !important;
     }
 
     .history-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 16px 20px;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        padding: 12px 14px !important;
     }
 
     .price-info {
-        justify-content: space-between;
+        gap: 8px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .price {
+        font-size: 0.9rem !important;
+    }
+
+    .points-earned {
+        padding: 4px 10px !important;
+        font-size: 0.65rem !important;
     }
 
     .btn-delete {
-        width: 100%;
-        text-align: center;
+        padding: 6px 12px !important;
+        font-size: 0.7rem !important;
+        flex-shrink: 0 !important;
     }
 
     .modal-box {
-        padding: 32px 24px;
-        border-radius: 20px;
+        padding: 16px 12px !important;
+        border-radius: 12px !important;
     }
 
     .modal-box h3 {
-        font-size: 24px;
+        font-size: 0.95rem !important;
+    }
+
+    .modal-box p {
+        font-size: 0.75rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    .queue-display {
+        padding: 10px !important;
+        font-size: 0.75rem !important;
+        margin: 12px 0 !important;
+    }
+
+    .warning-text {
+        font-size: 0.7rem !important;
+        margin: 10px 0 !important;
     }
 
     .close-btn {
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        font-size: 20px;
+        top: 10px !important;
+        right: 10px !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 16px !important;
     }
 
     .booking-summary {
-        padding: 20px;
+        padding: 12px !important;
+        margin: 12px 0 !important;
+    }
+
+    .booking-summary p {
+        font-size: 0.75rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .booking-summary ul li {
+        font-size: 0.7rem !important;
+        padding: 6px 0 !important;
+        padding-left: 20px !important;
+    }
+
+    .booking-summary ul li::before {
+        width: 4px !important;
+        height: 4px !important;
+        top: 12px !important;
     }
 
     .modal-actions {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row !important;
+        gap: 6px !important;
+        margin-top: 16px !important;
     }
 
     .modal-actions button {
-        width: 100%;
+        width: 100% !important;
+        padding: 8px 12px !important;
+        font-size: 0.75rem !important;
     }
 }
 

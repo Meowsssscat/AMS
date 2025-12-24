@@ -586,56 +586,228 @@ body {
 /* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
     .main-content {
-        padding: 40px 16px;
+        padding: 20px 10px !important;
     }
 
     .page-title {
-        font-size: 28px;
-        margin-bottom: 32px;
+        font-size: 1.2rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .settings-list {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
     }
 
     .settings-card {
-        padding: 24px;
+        padding: 14px !important;
+        display: block !important;
     }
 
     .settings-card h2 {
-        font-size: 20px;
+        font-size: 0.95rem !important;
+        margin-bottom: 12px !important;
     }
 
-    .form-group input {
-        padding: 12px 14px;
-        font-size: 14px;
+    .warning-text {
+        font-size: 0.75rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    .form-group {
+        margin-bottom: 12px !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .form-group label {
+        font-size: 0.75rem !important;
+        margin-bottom: 6px !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .form-group input,
+    .password-input-wrapper input {
+        padding: 10px 12px !important;
+        font-size: 0.75rem !important;
+        border-radius: 8px !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .password-input-wrapper {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .password-input-wrapper input {
+        padding-right: 40px !important;
+    }
+
+    .toggle-password {
+        right: 8px !important;
+        padding: 6px !important;
+    }
+
+    .eye-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .hint {
+        font-size: 0.65rem !important;
+        margin-top: 4px !important;
+    }
+
+    .button-section {
+        margin-top: 12px !important;
+        padding-top: 12px !important;
+    }
+
+    .btn-primary,
+    .btn-danger {
+        padding: 10px !important;
+        font-size: 0.75rem !important;
     }
 
     .modal-box {
-        padding: 32px 24px;
-        border-radius: 20px;
+        padding: 16px 12px !important;
+        border-radius: 12px !important;
+        max-width: 90% !important;
     }
 
     .modal-box h3 {
-        font-size: 24px;
+        font-size: 0.9rem !important;
+        margin-bottom: 8px !important;
+    }
+
+    .modal-box p {
+        font-size: 0.7rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .modal-box .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .modal-box .form-group label {
+        font-size: 0.7rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .modal-box .form-group input,
+    .modal-box .password-input-wrapper input {
+        padding: 8px 10px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .modal-box .password-input-wrapper input {
+        padding-right: 36px !important;
+    }
+
+    .modal-box .toggle-password {
+        right: 6px !important;
+        padding: 4px !important;
+    }
+
+    .modal-box .eye-icon {
+        width: 14px !important;
+        height: 14px !important;
     }
 
     .close-btn {
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 32px;
-        font-size: 20px;
+        top: 8px !important;
+        right: 8px !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 14px !important;
     }
 
     .booking-summary,
-    .delete-warning {
-        padding: 20px;
+    .delete-warning,
+    .final-warning-box {
+        padding: 10px !important;
+        margin: 10px 0 !important;
+    }
+
+    .booking-summary p,
+    .delete-warning p,
+    .final-warning-box p {
+        font-size: 0.7rem !important;
+        margin: 6px 0 !important;
+    }
+
+    .booking-summary ul,
+    .delete-warning ul,
+    .final-warning-box ul {
+        margin-top: 6px !important;
+    }
+
+    .booking-summary ul li,
+    .delete-warning ul li,
+    .final-warning-box li {
+        font-size: 0.65rem !important;
+        padding: 4px 0 !important;
+        padding-left: 16px !important;
+    }
+
+    .booking-summary ul li::before,
+    .delete-warning ul li::before,
+    .final-warning-box li::before {
+        width: 3px !important;
+        height: 3px !important;
+        top: 10px !important;
+    }
+
+    .final-warning-text {
+        font-size: 0.7rem !important;
+        margin: 8px 0 !important;
     }
 
     .modal-actions {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row !important;
+        gap: 6px !important;
+        margin-top: 12px !important;
     }
 
     .modal-actions button {
-        width: 100%;
+        width: 100% !important;
+        padding: 8px 10px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .alert {
+        padding: 8px 10px !important;
+        font-size: 0.7rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* Ensure Account Information card and all its elements are visible */
+    .settings-card:first-child,
+    .settings-card:nth-child(1) {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .settings-card:first-child .form-group,
+    .settings-card:nth-child(1) .form-group {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .settings-card:first-child .form-group:first-child,
+    .settings-card:nth-child(1) .form-group:first-child {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 }
 

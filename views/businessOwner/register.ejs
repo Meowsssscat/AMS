@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Application - AMS</title>
+    <title>Business Application</title>
     <link rel="stylesheet" href="/css/scrollbar.css">
-    <!-- Leaflet CSS for OpenStreetMap -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * {
@@ -16,107 +15,108 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
+            background: #ffffff;
             color: #1a1a1a;
             line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
         }
 
-        .registration-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        .back-link {
+            margin-bottom: 20px;
         }
 
-        .registration-header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
+        .back-link a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .registration-header h1 {
-            font-size: 28px;
+        .back-link a:hover {
+            color: #1a1a1a;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
             font-weight: 700;
+            color: #1a1a1a;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
-        .registration-header p {
-            font-size: 16px;
-            opacity: 0.9;
+        .page-header p {
+            color: #666;
+            font-size: 15px;
         }
 
-        .form-content {
-            padding: 40px 30px;
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            color: #1565c0;
-            padding: 20px;
-            border-radius: 12px;
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
             margin-bottom: 30px;
-            border-left: 4px solid #1976d2;
-        }
-
-        .info-box strong {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .info-box ul {
-            margin: 10px 0 0 20px;
-        }
-
-        .info-box li {
-            margin-bottom: 5px;
         }
 
         .form-section {
-            margin-bottom: 40px;
-            padding: 25px;
             background: #f8f9fa;
             border-radius: 12px;
-            border: 1px solid #e9ecef;
+            padding: 24px;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+
+        .form-section.loading {
+            opacity: 0.6;
+        }
+
+        .form-section.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin: -12px 0 0 -12px;
+            border: 3px solid #1a1a1a;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .form-section h2 {
-            color: #1a1a1a;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a1a1a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            color: #1a1a1a;
             margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-            font-weight: 500;
             font-size: 14px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 6px;
         }
 
-        .form-group label .required {
+        .required {
             color: #e74c3c;
         }
 
@@ -124,12 +124,12 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e9ecef;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
             font-size: 14px;
-            transition: all 0.3s ease;
-            background: white;
+            font-family: inherit;
+            transition: border-color 0.2s;
         }
 
         .form-group input:focus,
@@ -137,647 +137,409 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #1a1a1a;
-            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
         }
 
-        .error-message {
-            background: #ffebee;
-            color: #c62828;
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            border-left: 4px solid #e74c3c;
-            font-weight: 500;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: #1a1a1a;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .submit-btn:hover {
-            background: #333;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .back-link a {
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .back-link a:hover {
+        .map-section {
             background: #f8f9fa;
-            transform: translateX(-2px);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
         }
 
-        /* Map Styles */
-        .map-container {
-            margin-top: 10px;
+        .map-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 12px;
         }
 
         .map-controls {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
         }
 
         .map-btn {
-            padding: 8px 16px;
-            background: #1a1a1a;
-            color: white;
-            border: none;
-            border-radius: 6px;
+            flex: 1;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
 
         .map-btn:hover {
-            background: #333;
-            transform: translateY(-1px);
-        }
-
-        .map-info {
-            margin-top: 8px;
-            padding: 8px 12px;
             background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 3px solid #1a1a1a;
-        }
-
-        .map-info small {
-            color: #666;
-            font-size: 12px;
-        }
-
-        #map {
-            transition: border-color 0.3s ease;
-        }
-
-        #map.map-active {
             border-color: #1a1a1a;
-            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
         }
 
-        /* Address field update animation */
-        .address-updating {
-            background-color: #fff3cd !important;
-            border-color: #ffc107 !important;
-            transition: all 0.3s ease;
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .address-updated {
-            background-color: #d4edda !important;
-            border-color: #28a745 !important;
-            transition: all 0.3s ease;
+        .submit-btn:hover {
+            background: #333;
         }
 
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .container {
+                padding: 12px;
             }
 
-            .registration-header {
-                padding: 30px 20px;
+            .back-link {
+                margin-bottom: 16px;
             }
 
-            .registration-header h1 {
-                font-size: 24px;
+            .back-link a {
+                font-size: 13px;
             }
 
-            .form-content {
-                padding: 30px 20px;
+            .page-header {
+                margin-bottom: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 20px;
+            }
+
+            .page-header p {
+                font-size: 13px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 20px;
             }
 
             .form-section {
-                padding: 20px;
+                padding: 16px;
+            }
+
+            .form-section h2 {
+                font-size: 14px;
+                margin-bottom: 16px;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
-                gap: 0;
+                gap: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-group label {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .map-section {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .map-section h2 {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .map-section p {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            #map {
+                height: 200px;
+                margin-bottom: 10px;
+            }
+
+            .map-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .map-btn {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .error-message {
+                padding: 10px;
+                font-size: 12px;
+                margin-bottom: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="registration-container">
-        <div class="registration-header">
-            <h1>🏢 <%= isUnifiedMode ? 'Business Application' : 'Business Owner Registration' %></h1>
-            <p><%= isUnifiedMode ? 'Apply to offer your services as a business owner' : 'Join our marketplace and start offering your services to customers' %></p>
+    <div class="container">
+        <% if (isUnifiedMode) { %>
+        <div class="back-link">
+            <a href="/home">← Back</a>
+        </div>
+        <% } %>
+
+        <div class="page-header">
+            <h1>Business Application</h1>
+            <p>Apply to offer your services</p>
         </div>
 
-            <% if (error) { %>
-                <div class="error-message">
-                    ⚠️ <%= error %>
-                </div>
-            <% } %>
+        <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message"><%= error %></div>
+        <% } %>
 
-            <div class="info-box">
-                <strong>📋 Required Documents:</strong>
-                <ul>
-                    <li>DTI Business Registration or SEC Certificate</li>
-                    <li>Mayor's Permit / Business Permit</li>
-                    <li>Valid Government ID</li>
-                    <li>BIR Certificate of Registration (Optional)</li>
-                </ul>
-                <p style="margin-top: 10px;"><em>You'll upload these documents in the next step.</em></p>
-            </div>
+        <form action="/business/register" method="POST">
+            <div class="form-grid">
+                <!-- Business Info -->
+                <div class="form-section">
+                    <h2>Business</h2>
+                    
+                    <div class="form-group">
+                        <label>Name <span class="required">*</span></label>
+                        <input type="text" name="businessName" required>
+                    </div>
 
-            <form action="<%= isUnifiedMode ? '/business/register' : '/business-owner/register' %>" method="POST">
-            <% if (!isUnifiedMode) { %>
-            <!-- Personal Information (Only for new business owners) -->
-            <div class="form-section">
-                <h2>👤 Personal Information</h2>
-                
-                <div class="form-row">
                     <div class="form-group">
-                        <label>First Name <span class="required">*</span></label>
-                        <input type="text" name="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name <span class="required">*</span></label>
-                        <input type="text" name="lastName" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email Address <span class="required">*</span></label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" name="phoneNumber" placeholder="09XX-XXX-XXXX" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Password <span class="required">*</span></label>
-                        <input type="password" name="password" minlength="6" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password <span class="required">*</span></label>
-                        <input type="password" name="confirmPassword" minlength="6" required>
-                    </div>
-                </div>
-            </div>
-            <% } else { %>
-            <!-- User Info Display (For existing customers) -->
-            <div class="form-section">
-                <h2>👤 Account Information</h2>
-                <div class="info-box">
-                    <p><strong>Applying as:</strong> <%= user.fullName %> (<%= user.email %>)</p>
-                    <p><em>Your business application will be linked to this account.</em></p>
-                </div>
-            </div>
-            <% } %>
-
-            <!-- Business Information -->
-            <div class="form-section">
-                <h2>🏢 Business Information</h2>
-                
-                <div class="form-group">
-                    <label>Business Name <span class="required">*</span></label>
-                    <input type="text" name="businessName" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Business Type <span class="required">*</span></label>
+                        <label>Type <span class="required">*</span></label>
                         <select name="businessType" required>
-                            <option value="">Select Type</option>
-                            <option value="salon">Beauty Salon</option>
+                            <option value="">Select</option>
+                            <option value="salon">Salon</option>
                             <option value="barbershop">Barbershop</option>
                             <option value="spa">Spa</option>
                             <option value="clinic">Clinic</option>
                             <option value="gym">Gym</option>
-                            <option value="wellness">Wellness Center</option>
-                            <option value="beauty">Beauty Services</option>
+                            <option value="wellness">Wellness</option>
+                            <option value="beauty">Beauty</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>Business Phone <span class="required">*</span></label>
+                        <label>Phone <span class="required">*</span></label>
                         <input type="tel" name="businessPhone" placeholder="09XX-XXX-XXXX" required>
                     </div>
-                </div>
 
-                <div class="form-row">
                     <div class="form-group">
-                        <label>Website (Optional)</label>
-                        <input type="url" name="website" placeholder="https://...">
+                        <label>Website</label>
+                        <input type="url" name="website" placeholder="https://">
                     </div>
-                    <div class="form-group">
-                        <!-- Empty div for grid alignment -->
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Business Description</label>
-                    <textarea name="description" placeholder="Tell us about your business..."></textarea>
-                </div>
-            </div>
-
-            <!-- Business Address -->
-            <div class="form-section">
-                <h2>📍 Business Address</h2>
-                
-                <div class="form-group">
-                    <label>Street Address <span class="required">*</span></label>
-                    <input type="text" id="street" name="street" placeholder="Building No., Street Name" required>
-                </div>
-
-                <div class="form-row">
                     <div class="form-group">
-                        <label>Barangay <span class="required">*</span></label>
-                        <input type="text" id="barangay" name="barangay" required>
-                    </div>
-                    <div class="form-group">
-                        <label>City <span class="required">*</span></label>
-                        <input type="text" id="city" name="city" required>
+                        <label>Description</label>
+                        <textarea name="description" placeholder="About your business"></textarea>
                     </div>
                 </div>
 
-                <div class="form-row">
+                <!-- Address -->
+                <div class="form-section" id="addressSection">
+                    <h2>Address</h2>
+                    
                     <div class="form-group">
-                        <label>Province <span class="required">*</span></label>
-                        <input type="text" id="province" name="province" required>
+                        <label>Street <span class="required">*</span></label>
+                        <input type="text" id="street" name="street" required>
                     </div>
-                    <div class="form-group">
-                        <label>Zip Code</label>
-                        <input type="text" id="zipCode" name="zipCode" placeholder="Optional">
-                    </div>
-                </div>
 
-                <!-- Map Section -->
-                <div class="form-group">
-                    <label>📍 Pin Your Business Location</label>
-                    <div class="map-container">
-                        <div id="map" style="height: 300px; width: 100%; border-radius: 8px; border: 2px solid #e9ecef;"></div>
-                        <div class="map-controls">
-                            <button type="button" id="searchAddress" class="map-btn">🔍 Search Address</button>
-                            <button type="button" id="getCurrentLocation" class="map-btn">📍 Use Current Location</button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Barangay <span class="required">*</span></label>
+                            <input type="text" id="barangay" name="barangay" required>
                         </div>
-                        <div class="map-info">
-                            <small>Click on the map to set your business location or use the buttons above</small>
-                            <div id="address-status" style="margin-top: 5px; font-size: 11px; color: #666;"></div>
+                        <div class="form-group">
+                            <label>City <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" required>
                         </div>
                     </div>
-                    <input type="hidden" id="latitude" name="latitude">
-                    <input type="hidden" id="longitude" name="longitude">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Province <span class="required">*</span></label>
+                            <input type="text" id="province" name="province" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Zip Code</label>
+                            <input type="text" id="zipCode" name="zipCode">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-                <button type="submit" class="submit-btn">
-                    Continue to Document Upload →
-                </button>
-            </form>
-
-            <div class="back-link">
-                <% if (isUnifiedMode) { %>
-                    <a href="/home">← Back to Customer Dashboard</a>
-                <% } else { %>
-                    <a href="/login">Already have an account? Login here</a>
-                <% } %>
+            <!-- Map -->
+            <div class="map-section">
+                <h2>Pin Location</h2>
+                <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Click or drag the marker to set your exact location</p>
+                <div id="map"></div>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
             </div>
-        </div>
+
+            <button type="submit" class="submit-btn">Continue →</button>
+        </form>
     </div>
 
-    <!-- Leaflet JavaScript for OpenStreetMap -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <script>
-        let map;
-        let marker;
-        
-        // Initialize OpenStreetMap
+        let map, marker;
+        const defaultLat = 14.5995;
+        const defaultLng = 120.9842;
+        let geocodeTimeout;
+
         function initMap() {
-            console.log('🚀 Initializing OpenStreetMap...');
-            
-            // Default location (Philippines center)
-            const defaultLocation = [14.5995, 120.9842];
-            
-            // Create map
-            map = L.map('map').setView(defaultLocation, 13);
-            
-            // Add OpenStreetMap tiles
+            map = L.map('map').setView([defaultLat, defaultLng], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+                attribution: '© OpenStreetMap'
             }).addTo(map);
+
+            marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
             
-            // Initialize marker (hidden initially)
-            marker = L.marker(defaultLocation, {
-                draggable: true
-            });
-            
-            // Add click listener to map
-            map.on('click', function(e) {
-                const lat = e.latlng.lat;
-                const lng = e.latlng.lng;
-                
-                setMarkerPosition(lat, lng);
-                updateAddressFromCoordinates(lat, lng);
-            });
-            
-            // Add drag listener to marker
             marker.on('dragend', function(e) {
-                const position = e.target.getLatLng();
-                updateCoordinates(position.lat, position.lng);
-                updateAddressFromCoordinates(position.lat, position.lng);
+                const pos = marker.getLatLng();
+                updateLocation(pos.lat, pos.lng);
+                debouncedGeocode(pos.lat, pos.lng);
             });
-            
-            // Try to get user's current location
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const userLocation = [position.coords.latitude, position.coords.longitude];
-                    map.setView(userLocation, 15);
-                });
-            }
-            
-            console.log('✅ OpenStreetMap initialized successfully');
-        }
-        
-        // Set marker position
-        function setMarkerPosition(lat, lng) {
-            marker.setLatLng([lat, lng]);
-            
-            // Add marker to map if not already added
-            if (!map.hasLayer(marker)) {
-                marker.addTo(map);
-            }
-            
-            updateCoordinates(lat, lng);
-            
-            // Add visual feedback
-            document.getElementById('map').classList.add('map-active');
-            setTimeout(() => {
-                document.getElementById('map').classList.remove('map-active');
-            }, 1000);
-        }
-        
-        // Update coordinate inputs
-        function updateCoordinates(lat, lng) {
-            document.getElementById('latitude').value = lat;
-            document.getElementById('longitude').value = lng;
-            console.log(`📍 Location updated: ${lat}, ${lng}`);
-        }
-        
-        // Update address fields from coordinates using Nominatim
-        function updateAddressFromCoordinates(lat, lng) {
-            console.log(`🔍 Reverse geocoding: ${lat}, ${lng}`);
-            
-            // Show loading status
-            const statusDiv = document.getElementById('address-status');
-            if (statusDiv) {
-                statusDiv.textContent = '🔍 Getting address...';
-                statusDiv.style.color = '#666';
-            }
-            
-            // Add updating class to address fields
-            const addressFields = ['street', 'barangay', 'city', 'province', 'zipCode'];
-            addressFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    field.classList.add('address-updating');
-                }
+
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                updateLocation(e.latlng.lat, e.latlng.lng);
+                debouncedGeocode(e.latlng.lat, e.latlng.lng);
             });
+
+            updateLocation(defaultLat, defaultLng);
+        }
+
+        function updateLocation(lat, lng) {
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lng.toFixed(6);
+        }
+
+        // Debounce to avoid too many API calls
+        function debouncedGeocode(lat, lng) {
+            clearTimeout(geocodeTimeout);
+            const addressSection = document.getElementById('addressSection');
+            addressSection.classList.add('loading');
             
-            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+            geocodeTimeout = setTimeout(() => {
+                reverseGeocode(lat, lng);
+            }, 500); // Wait 500ms before calling API
+        }
+
+        function reverseGeocode(lat, lng) {
+            const addressSection = document.getElementById('addressSection');
             
-            fetch(url)
-                .then(response => response.json())
+            // Use backend proxy to avoid CORS issues
+            fetch(`/business/geocode?lat=${lat}&lng=${lng}`)
+                .then(res => res.json())
                 .then(data => {
+                    console.log('Geocode response:', data);
+                    
                     if (data && data.address) {
-                        const address = data.address;
-                        console.log('📍 Address found:', address);
+                        const addr = data.address;
+                        console.log('Address data:', addr);
                         
-                        // Always update form fields to show the address from map click
-                        if (address.road) {
-                            const streetAddress = address.road + (address.house_number ? ' ' + address.house_number : '');
-                            document.getElementById('street').value = streetAddress;
+                        // Fill all fields
+                        const streetField = document.getElementById('street');
+                        const street = addr.road || addr.street || addr.pedestrian || addr.path || 
+                                     addr.footway || addr.cycleway || addr.highway || '';
+                        if (street) {
+                            streetField.value = street;
+                            console.log('Street filled:', street);
                         }
                         
-                        // Update barangay
-                        const barangay = address.suburb || address.neighbourhood || address.village || address.sublocality || '';
+                        const barangayField = document.getElementById('barangay');
+                        const barangay = addr.suburb || addr.neighbourhood || addr.village || 
+                                       addr.hamlet || addr.quarter || addr.subdistrict || '';
                         if (barangay) {
-                            document.getElementById('barangay').value = barangay;
+                            barangayField.value = barangay;
+                            console.log('Barangay filled:', barangay);
                         }
                         
-                        // Update city
-                        const city = address.city || address.town || address.municipality || address.county || '';
+                        const cityField = document.getElementById('city');
+                        const city = addr.city || addr.town || addr.municipality || 
+                                   addr.city_district || addr.county || '';
                         if (city) {
-                            document.getElementById('city').value = city;
+                            cityField.value = city;
+                            console.log('City filled:', city);
                         }
                         
-                        // Update province
-                        if (address.state) {
-                            document.getElementById('province').value = address.state;
+                        const provinceField = document.getElementById('province');
+                        const province = addr.state || addr.province || addr.region || '';
+                        if (province) {
+                            provinceField.value = province;
+                            console.log('Province filled:', province);
                         }
                         
-                        // Update zip code
-                        if (address.postcode) {
-                            document.getElementById('zipCode').value = address.postcode;
+                        const zipField = document.getElementById('zipCode');
+                        if (addr.postcode) {
+                            zipField.value = addr.postcode;
+                            console.log('Zip filled:', addr.postcode);
                         }
                         
-                        // Show success status
-                        if (statusDiv) {
-                            statusDiv.textContent = '✅ Address updated from map';
-                            statusDiv.style.color = '#28a745';
-                            setTimeout(() => {
-                                statusDiv.textContent = '';
-                            }, 3000);
-                        }
-                        
-                        // Add updated class to fields
-                        addressFields.forEach(fieldId => {
-                            const field = document.getElementById(fieldId);
-                            if (field) {
-                                field.classList.remove('address-updating');
-                                field.classList.add('address-updated');
-                                setTimeout(() => {
-                                    field.classList.remove('address-updated');
-                                }, 2000);
-                            }
-                        });
-                        
-                        console.log('✅ Address fields updated');
+                        console.log('Auto-fill complete');
                     } else {
-                        console.log('❌ No address data found');
-                        if (statusDiv) {
-                            statusDiv.textContent = '⚠️ Address not found for this location';
-                            statusDiv.style.color = '#ffc107';
-                            setTimeout(() => {
-                                statusDiv.textContent = '';
-                            }, 3000);
-                        }
-                        
-                        // Remove updating class
-                        addressFields.forEach(fieldId => {
-                            const field = document.getElementById(fieldId);
-                            if (field) {
-                                field.classList.remove('address-updating');
-                            }
-                        });
+                        console.log('No address data found');
                     }
                 })
-                .catch(error => {
-                    console.error('❌ Reverse geocoding error:', error);
-                    if (statusDiv) {
-                        statusDiv.textContent = '❌ Error getting address';
-                        statusDiv.style.color = '#dc3545';
-                        setTimeout(() => {
-                            statusDiv.textContent = '';
-                        }, 3000);
-                    }
-                    
-                    // Remove updating class
-                    addressFields.forEach(fieldId => {
-                        const field = document.getElementById(fieldId);
-                        if (field) {
-                            field.classList.remove('address-updating');
-                        }
-                    });
-                });
-        }
-        
-        // Search address using Nominatim
-        function searchAddress() {
-            const street = document.getElementById('street').value;
-            const barangay = document.getElementById('barangay').value;
-            const city = document.getElementById('city').value;
-            const province = document.getElementById('province').value;
-            
-            const fullAddress = [street, barangay, city, province, 'Philippines']
-                .filter(Boolean).join(', ');
-            
-            if (!fullAddress.trim()) {
-                alert('Please fill in at least the street and city fields to search.');
-                return;
-            }
-            
-            console.log(`🔍 Searching for: ${fullAddress}`);
-            
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.length > 0) {
-                        const result = data[0];
-                        const lat = parseFloat(result.lat);
-                        const lng = parseFloat(result.lon);
-                        
-                        console.log(`✅ Address found: ${lat}, ${lng}`);
-                        
-                        // Move map and set marker
-                        map.setView([lat, lng], 16);
-                        setMarkerPosition(lat, lng);
-                        
-                        // Show popup with found address
-                        marker.bindPopup(`<strong>Found:</strong><br>${result.display_name}`).openPopup();
-                    } else {
-                        console.log('❌ Address not found');
-                        alert('Address not found. Please try a different address or click on the map to set location manually.');
-                    }
+                .catch(err => {
+                    console.error('Geocode error:', err);
                 })
-                .catch(error => {
-                    console.error('❌ Geocoding error:', error);
-                    alert('Error searching for address. Please try again.');
+                .finally(() => {
+                    addressSection.classList.remove('loading');
                 });
         }
-        
-        // Get current location
-        function getCurrentLocation() {
-            console.log('📍 Getting current location...');
-            
-            if (!navigator.geolocation) {
-                alert('Geolocation is not supported by this browser.');
-                return;
-            }
-            
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    
-                    console.log(`✅ Current location: ${lat}, ${lng}`);
-                    
-                    // Move map and set marker
-                    map.setView([lat, lng], 16);
-                    setMarkerPosition(lat, lng);
-                    updateAddressFromCoordinates(lat, lng);
-                },
-                function(error) {
-                    console.error('❌ Geolocation error:', error);
-                    alert('Unable to get your location: ' + error.message);
-                }
-            );
-        }
-        
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize map
-            initMap();
-            
-            // Search address button
-            document.getElementById('searchAddress').addEventListener('click', function() {
-                searchAddress();
-            });
-            
-            // Get current location button
-            document.getElementById('getCurrentLocation').addEventListener('click', function() {
-                getCurrentLocation();
-            });
-            
-            // Auto-search when address fields are filled
-            const addressFields = ['street', 'barangay', 'city', 'province'];
-            addressFields.forEach(fieldId => {
-                document.getElementById(fieldId).addEventListener('blur', function() {
-                    // Auto-search when user finishes typing
-                    setTimeout(() => {
-                        if (this.value) {
-                            const city = document.getElementById('city').value;
-                            const province = document.getElementById('province').value;
-                            if (city && province) {
-                                searchAddress();
-                            }
-                        }
-                    }, 500);
-                });
-            });
-        });
+
+        initMap();
     </script>
 </body>
 </html>
